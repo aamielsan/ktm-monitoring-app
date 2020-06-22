@@ -12,8 +12,6 @@ import Container from './components/Container';
 import Home from './pages/Home';
 import Setup from './pages/Setup';
 
-console.log('test', process.env);
-
 export default function App() {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
