@@ -12,7 +12,7 @@ import Container from './components/Container';
 import Home from './pages/Home';
 import Setup from './pages/Setup';
 
-console.log('test', process.env.REACT_APP_TEST_VAR);
+console.log('test', process.env);
 
 export default function App() {
   return (
