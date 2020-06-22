@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 
-export const DATE_FORMAT = 'dd MMM yyyy';
+export const DATE_FORMAT = 'dd-MMM-yyyy';
 
 export function formatDate(value) {
 
