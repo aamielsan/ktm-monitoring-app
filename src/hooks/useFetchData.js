@@ -2,20 +2,29 @@ import { useEffect, useState } from 'react';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 async function fetchRows(sheetId) {
-  if (!sheetId) {
-    return [];
+  try {
+    if (!sheetId) {
+      return [];
+    }
+
+    const doc = new GoogleSpreadsheet(sheetId);
+
+    console.log('sa auth');
+    await doc.useServiceAccountAuth({
+      client_email: process.env.REACT_APP_GOOGLE_SA,
+      private_key: process.env.REACT_APP_GOOGLE_PK,
+    });
+    console.log('done sa auth');
+    await doc.loadInfo();
+    console.log('done load info');
+    const sheet = doc.sheetsByIndex[0];
+    const rows = await sheet.getRows();
+    console.log('done get rows');
+    return rows;
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
-
-  const doc = new GoogleSpreadsheet(sheetId);
-
-  await doc.useServiceAccountAuth({
-    client_email: process.env.REACT_APP_GOOGLE_SA,
-    private_key: process.env.REACT_APP_GOOGLE_PK,
-  });
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
-  const rows = await sheet.getRows();
-  return rows;
 }
 
 function useFetchData(sheetId) {
