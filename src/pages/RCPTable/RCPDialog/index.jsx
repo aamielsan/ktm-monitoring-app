@@ -11,7 +11,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DatePicker } from 'formik-material-ui-pickers';
 import { Formik, FastField as Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import { LABEL_MAP, RCP_TYPE_MAP, APV_TYPE_MAP, CDV_TYPE_MAP, COMMON_TYPE_MAP, TYPE_MAP, DATE_FIELDS } from '../constants';
+import { LABEL_MAP, RCP_TYPE_MAP, APV_TYPE_MAP, CDV_TYPE_MAP, COMMON_TYPE_MAP, TYPE_MAP } from '../constants';
 import FormPanel from './FormPanel';
 import {formatDate} from '../utils';
 
@@ -66,7 +66,7 @@ export default function RCPDialog(props) {
   async function handleSubmit(values, { setSubmitting }) {
     try {
       setSubmitting(true);
-      const normalized = normalizeDates(values);
+      const normalized = normalize(values);
       await saveRcp(normalized);
       setSubmitting(false);
       onClose();
@@ -152,11 +152,16 @@ const useStyles = makeStyles(theme =>
 // ─── UTILS ───────────────────────────────────────────────────────────────────────────
 //
 
-function normalizeDates(values) {
-  return DATE_FIELDS.reduce((res, field) => ({
-    ...res,
-    [field]: formatDate(values[field]),
-  }), values);
+function normalize(values) {
+  return Object.keys(values).reduce((res, key) => {
+    const isDate = TYPE_MAP[key] === 'date';
+    const value = isDate ? formatDate(values[key]) : values[key];
+    return {
+      ...res,
+      [key]: (value || '').trim(),
+    }
+
+  }, values);
 }
 
 function getInitialValues(initialValue = {}) {
