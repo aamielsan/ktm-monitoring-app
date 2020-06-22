@@ -52,3 +52,19 @@ export const CDV_TYPE_MAP = {
 export const COMMON_TYPE_MAP = {
   'updatedBy': 'string'
 };
+
+export const DATE_FIELDS = [
+  'rcp_dateDue',
+  'rcp_dateTransmitted',
+  'apv_dateTransaction',
+  'apv_dateTransmitted',
+  'cdv_dateTransaction',
+  'cdv_datePayment',
+];
+
+export const TYPE_MAP = {
+  ...RCP_TYPE_MAP,
+  ...APV_TYPE_MAP,
+  ...CDV_TYPE_MAP,
+  ...COMMON_TYPE_MAP
+};

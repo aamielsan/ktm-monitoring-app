@@ -18,6 +18,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable from "material-table";
 import { LABEL_MAP as Label } from './constants';
+import { formatDate } from './utils';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -59,7 +60,7 @@ function RCPTable(props) {
           { title: Label["rcp_amtPeso"], field: "rcp_amtPeso", type: "numeric" },
           { title: Label["rcp_amtDollar"], field: "rcp_amtDollar", type: "numeric" },
           { title: Label["rcp_particulars"], field: "rcp_particulars" },
-          { title: Label["rcp_dateDue"], field: "rcp_dateDue", type: "date" },
+          { title: Label["rcp_dateDue"], type: "date", render: r => formatDate(r.rcp_dateDue) },
         ]}
         options={{
           pageSize: 5,

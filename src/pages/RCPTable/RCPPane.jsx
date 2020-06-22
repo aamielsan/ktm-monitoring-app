@@ -7,17 +7,21 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { LABEL_MAP as Label } from './constants';
+import { LABEL_MAP as Label, TYPE_MAP as Type } from './constants';
+import { formatDate } from './utils';
+
 
 function Detail(props) {
   const { data, field } = props;
   const classes = useStyles();
   const label = Label[field] || field;
+  const type = Type[field];
+  const value = (type === 'date') ? formatDate(data[field]) : data[field];
 
   return (
     <Box component="div" display="flex" justifyContent="space-between" alignItems="center">
       <Typography gutterBottom className={classes.label} variant="body2" component="span">{label}</Typography>
-      <Typography gutterBottom variant="body2" component="span">{data[field] || '-'}</Typography>
+      <Typography gutterBottom variant="body2" component="span">{value || '-'}</Typography>
     </Box>
   );
 }

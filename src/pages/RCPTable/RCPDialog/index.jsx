@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -10,9 +11,9 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { DatePicker } from 'formik-material-ui-pickers';
 import { Formik, FastField as Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import { LABEL_MAP, RCP_TYPE_MAP, APV_TYPE_MAP, CDV_TYPE_MAP, COMMON_TYPE_MAP } from '../constants';
+import { LABEL_MAP, RCP_TYPE_MAP, APV_TYPE_MAP, CDV_TYPE_MAP, COMMON_TYPE_MAP, TYPE_MAP, DATE_FIELDS } from '../constants';
 import FormPanel from './FormPanel';
-import axios from 'axios';
+import {formatDate} from '../utils';
 
 async function saveRcp(rcp) {
   try {
@@ -32,68 +33,6 @@ async function saveRcp(rcp) {
     throw e;
   }
 }
-
-function getInitialValues(initialValue = {}) {
-  const TYPE_MAP = {
-    ...RCP_TYPE_MAP,
-    ...APV_TYPE_MAP,
-    ...CDV_TYPE_MAP,
-    ...COMMON_TYPE_MAP,
-  };
-
-  return Object.keys(TYPE_MAP).reduce((res, key) => ({
-    ...res,
-    [key]: initialValue[key] || null,
-  }), {});
-}
-
-function renderFields(typeMap) {
-  const gridProps = {
-    item: true,
-    xs: 12
-  };
-
-  const fieldProps = {
-    fullWidth: true
-  };
-
-  return Object.keys(typeMap).map(key => {
-    const name = key;
-    const label = LABEL_MAP[key];
-    const type = typeMap[key];
-
-    switch (type) {
-      case 'date': {
-        return (
-          <Grid key={name} {...gridProps}>
-            <Field
-              {...fieldProps}
-              name={name}
-              label={label}
-              component={DatePicker}
-              format="d-MMM-yyyy"
-            />
-          </Grid>
-        );
-      }
-
-      default: {
-        return (
-          <Grid key={name} {...gridProps}>
-            <Field
-              {...fieldProps}
-              component={TextField}
-              type={type}
-              label={label}
-              name={name}
-            />
-          </Grid>
-        );
-      }
-    }
-  });
-}
-
 
 export default function RCPDialog(props) {
   const { open, onClose, data } = props;
@@ -127,7 +66,8 @@ export default function RCPDialog(props) {
   async function handleSubmit(values, { setSubmitting }) {
     try {
       setSubmitting(true);
-      await saveRcp(values);
+      const normalized = normalizeDates(values);
+      await saveRcp(normalized);
       setSubmitting(false);
       onClose();
     } catch (e) {
@@ -207,3 +147,68 @@ const useStyles = makeStyles(theme =>
     },
   }),
 );
+
+//
+// ─── UTILS ───────────────────────────────────────────────────────────────────────────
+//
+
+function normalizeDates(values) {
+  return DATE_FIELDS.reduce((res, field) => ({
+    ...res,
+    [field]: formatDate(values[field]),
+  }), values);
+}
+
+function getInitialValues(initialValue = {}) {
+  return Object.keys(TYPE_MAP).reduce((res, key) => ({
+    ...res,
+    [key]: initialValue[key] || null,
+  }), {});
+}
+
+function renderFields(typeMap) {
+  const gridProps = {
+    item: true,
+    xs: 12
+  };
+
+  const fieldProps = {
+    fullWidth: true
+  };
+
+  return Object.keys(typeMap).map(key => {
+    const name = key;
+    const label = LABEL_MAP[key];
+    const type = typeMap[key];
+
+    switch (type) {
+      case 'date': {
+        return (
+          <Grid key={name} {...gridProps}>
+            <Field
+              {...fieldProps}
+              name={name}
+              label={label}
+              component={DatePicker}
+            />
+          </Grid>
+        );
+      }
+
+      default: {
+        return (
+          <Grid key={name} {...gridProps}>
+            <Field
+              {...fieldProps}
+              component={TextField}
+              type={type}
+              label={label}
+              name={name}
+            />
+          </Grid>
+        );
+      }
+    }
+  });
+}
+
