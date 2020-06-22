@@ -12,7 +12,6 @@
     "formik-material-ui": "^2.0.0-beta.1",
     "formik-material-ui-pickers": "0.0.8",
     "google-spreadsheet": "3.0.11",
-    "lodash": "^4.17.15",
     "material-table": "^1.61.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
