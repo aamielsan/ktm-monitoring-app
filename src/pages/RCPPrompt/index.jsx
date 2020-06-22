@@ -21,7 +21,7 @@ export default function RCPPrompt(props) {
   return (
     <Box display="flex" flex="1" justifyContent="center" alignItems="center">
       <Paper className={classes.paper}>
-        <TextField value={value} onChange={handleChange} style={{ marginRight: '8px' }} label="Sheet ID" variant="outlined" />
+        <TextField value={value} onChange={handleChange} style={{ marginRight: '8px' }} label="ID" variant="outlined" />
         <Button variant="contained" color="secondary" onClick={handleClick}>Submit</Button>
       </Paper>
     </Box>
