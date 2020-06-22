@@ -13,7 +13,7 @@ import { Formik, FastField as Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { LABEL_MAP, RCP_TYPE_MAP, APV_TYPE_MAP, CDV_TYPE_MAP, COMMON_TYPE_MAP, TYPE_MAP } from '../constants';
 import FormPanel from './FormPanel';
-import {formatDate} from '../utils';
+import { formatDate, DATE_FORMAT } from '../utils';
 
 async function saveRcp(rcp) {
   try {
@@ -195,6 +195,7 @@ function renderFields(typeMap) {
               name={name}
               label={label}
               component={DatePicker}
+              format={DATE_FORMAT}
             />
           </Grid>
         );
