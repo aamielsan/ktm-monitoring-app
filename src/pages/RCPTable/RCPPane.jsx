@@ -75,7 +75,6 @@ const useStyles = makeStyles(theme =>
   createStyles({
     container: {
       display: 'flex',
-      flex: 1,
       flexDirection: 'column',
       padding: theme.spacing(2),
     },
