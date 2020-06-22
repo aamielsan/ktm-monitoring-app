@@ -25,7 +25,7 @@ export default function useSheetId() {
     if (id && pathname === '/setup') {
       history.push('/');
     }
-  }, [history, pathname]);
+  }, [history, pathname, sheetId]);
 
   return [sheetId, setSheetId]
 }
