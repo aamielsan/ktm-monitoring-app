@@ -15,6 +15,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import MaterialTable from "material-table";
+import { useTheme } from '@material-ui/core/styles';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -38,6 +39,7 @@ const tableIcons = {
 
 export default function ListTable(props) {
   const { rows, loading, columns, title, selection, onRowClick, onSelectionChange } = props;
+  const theme = useTheme();
 
   return (
     <MaterialTable
@@ -48,6 +50,9 @@ export default function ListTable(props) {
       onRowClick={onRowClick}
       onSelectionChange={onSelectionChange}
       columns={columns}
+      cellStyle={{
+        fontFamily: theme.typography.fontFamily,
+      }}
       options={{
         selection,
         pageSize: 5,
