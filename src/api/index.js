@@ -1,5 +1,7 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
+import pick from 'lodash.pick';
 import axios from 'axios';
+import { TYPE_MAP } from '../constants';
 
 export async function fetchRows(sheetId) {
   try {
@@ -16,7 +18,7 @@ export async function fetchRows(sheetId) {
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
-    return rows;
+    return (rows || []).map(r => pick(r, Object.keys(TYPE_MAP)));
   } catch (e) {
     console.error(e);
     throw e;
