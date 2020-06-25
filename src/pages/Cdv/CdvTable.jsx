@@ -17,9 +17,9 @@ const columns = [
 ];
 
 function CdvTable(props) {
-  const { onSelectionChange, onEditClick } = props;
+  const { refresh, onSelectionChange, onEditClick } = props;
   const [ sheetId ] = useSheetId();
-  const { rows, loading } = useFetchCdv(sheetId);
+  const { rows, loading } = useFetchCdv(sheetId, refresh);
 
   return (
     <ListTable

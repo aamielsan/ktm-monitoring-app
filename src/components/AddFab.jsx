@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>
     fab: {
       zIndex: theme.zIndex.drawer + 1,
       top: theme.spacing(4),
-      right: theme.spacing(3),
+      right: theme.spacing(13),
       position: "fixed"
     }
   })

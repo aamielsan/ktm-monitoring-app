@@ -10,14 +10,28 @@ import { getInitialValues, validate } from '../../utils';
 import RcpForm from '../../components/forms/RcpForm';
 import ApvForm from '../../components/forms/ApvForm';
 import CdvForm from '../../components/forms/CdvForm';
+import { saveRcp } from '../../api';
+import useSheetId from '../../hooks/useSheetId';
 
 export default function CdvDialog(props) {
   const { open, onClose, data } = props;
   const classes = useStyles();
+  const [ id ] = useSheetId();
 
   const initialValues = getInitialValues(data);
 
-  function handleSubmit() {}
+  async function handleSubmit(data, { setSubmitting }) {
+    try {
+      setSubmitting(true);
+      const res = await saveRcp({ id, data });
+      console.log(res);
+      onClose();
+    } catch (e) {
+      console.log('Error: ', e);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <Dialog fullWidth open={open} onClose={onClose}>

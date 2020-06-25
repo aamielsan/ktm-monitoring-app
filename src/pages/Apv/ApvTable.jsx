@@ -15,9 +15,9 @@ const columns = [
 ];
 
 function ApvTable(props) {
-  const { onEditClick } = props;
+  const { refresh, onEditClick } = props;
   const [ sheetId ] = useSheetId();
-  const { rows, loading } = useFetchApv(sheetId);
+  const { rows, loading } = useFetchApv(sheetId, refresh);
 
   return (
     <ListTable

@@ -15,9 +15,9 @@ const columns = [
 ];
 
 function RcpTable(props) {
-  const { onEditClick } = props;
+  const { refresh, onEditClick } = props;
   const [ sheetId ] = useSheetId();
-  const { rows, loading } = useFetchRcp(sheetId);
+  const { rows, loading } = useFetchRcp(sheetId, refresh);
 
   return (
     <ListTable
