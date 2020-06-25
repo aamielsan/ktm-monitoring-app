@@ -3,19 +3,28 @@ import pick from 'lodash.pick';
 import axios from 'axios';
 import { TYPE_MAP } from '../constants';
 
+let doc;
+let currSheetId
+
 export async function fetchRows(sheetId) {
   try {
     if (!sheetId) {
       return [];
     }
 
-    const doc = new GoogleSpreadsheet(sheetId);
+    if (currSheetId !== sheetId) {
+      doc = new GoogleSpreadsheet(sheetId);
+      await doc.useServiceAccountAuth({
+        client_email: process.env.REACT_APP_GOOGLE_SA,
+        private_key: process.env.REACT_APP_GOOGLE_PK,
+      });
+      currSheetId = sheetId;
+    }
 
-    await doc.useServiceAccountAuth({
-      client_email: process.env.REACT_APP_GOOGLE_SA,
-      private_key: process.env.REACT_APP_GOOGLE_PK,
-    });
-    await doc.loadInfo();
+    if (!doc._rawProperties) {
+      await doc.loadInfo();
+    }
+
     const sheet = doc.sheetsByIndex[0];
     const rows = await sheet.getRows();
     return (rows || []).map(r => pick(r, Object.keys(TYPE_MAP)));
