@@ -9,8 +9,10 @@ import {
 
 import ThemeProvider from './components/Theme';
 import Container from './components/Container';
-import Home from './pages/Home';
 import Setup from './pages/Setup';
+import Rcp from './pages/Rcp';
+import Apv from './pages/Apv';
+import Cdv from './pages/Cdv';
 
 export default function App() {
   return (
@@ -22,8 +24,14 @@ export default function App() {
                 <Route path="/setup">
                   <Setup />
                 </Route>
+                <Route path="/apv">
+                  <Apv />
+                </Route>
+                <Route path="/cdv">
+                  <Cdv />
+                </Route>
                 <Route path="/">
-                  <Home />
+                  <Rcp />
                 </Route>
               </Switch>
             </Container>
