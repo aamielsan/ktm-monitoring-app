@@ -1,6 +1,6 @@
 import React from 'react';
 import useSheetId from '../hooks/useSheetId';
-import RCPPrompt from './RCPPrompt/index.jsx';
+import RCPPrompt from './RCPPrompt';
 
 export default function Setup() {
   const [ sheetId, setSheetId ] = useSheetId();
