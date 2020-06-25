@@ -25,15 +25,21 @@ export async function fetchRows(sheetId) {
   }
 }
 
-export async function saveRcp(rcp) {
+export async function saveRcp({ id, data }) {
   try {
-    if (!rcp) {
+    if (!data || !id) {
       return;
     }
 
-    const res = await axios.post(process.env.REACT_APP_BACKEND_URL, rcp, {
-      headers: {
-        'x-api-key': process.env.REACT_APP_BACKEND_KEY,
+    const res = await axios.post(
+      process.env.REACT_APP_BACKEND_URL,
+      {
+        id,
+        data,
+      },
+      {
+        headers: {
+          'x-api-key': process.env.REACT_APP_BACKEND_KEY,
       },
     });
 
