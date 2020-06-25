@@ -5,7 +5,7 @@ function isPending(row) {
   return !row.apv_no;
 }
 
-function useFetchApv(sheetId) {
+function useFetchApv(sheetId, refresh) {
   const [ loading, setLoading ] = useState(false);
   const [ rows, setRows ] = useState([]);
 
@@ -18,6 +18,18 @@ function useFetchApv(sheetId) {
       })
       .finally(_ => setLoading(false));
   }, [sheetId]);
+
+  useEffect(() => {
+    if (refresh) {
+      setLoading(true);
+      fetchRows(sheetId)
+        .then(rows => {
+          const pending = rows.filter(isPending);
+          setRows(pending);
+        })
+        .finally(_ => setLoading(false));
+    }
+  }, [refresh]); // eslint-disable-line
 
   return {
     rows,
