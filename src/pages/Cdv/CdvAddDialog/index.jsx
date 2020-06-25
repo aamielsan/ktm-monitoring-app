@@ -11,6 +11,7 @@ import CdvForm from '../../../components/forms/CdvForm';
 import Step from './Step';
 import CdvList from './CdvList';
 import { saveRcp } from '../../../api';
+import useSheetId from '../../../hooks/useSheetId';
 
 const STEP_SELECT_APV = 'Verify APVs';
 const STEP_INPUT_CDV = 'Enter CDV details';
@@ -19,6 +20,7 @@ const steps = [ { label: STEP_SELECT_APV }, { label: STEP_INPUT_CDV } ];
 export default function CdvAddDialog(props) {
   const { open, rows, onClose, data } = props;
   const classes = useStyles();
+  const [ id ] = useSheetId();
   const [ activeStep, setActiveStep ] = useState(0);
   const initialValues = useMemo(() => getCdvInitialValues(data), [data]);
 
@@ -45,8 +47,8 @@ export default function CdvAddDialog(props) {
     try {
       setSubmitting(true);
       const tasks = rows.map(r => {
-        const rcp = getInitialValues({ ...r, ...values });
-        return saveRcp(rcp);
+        const data = getInitialValues({ ...r, ...values });
+        return saveRcp({ id, data });
       });
       const res = await Promise.all(tasks);
       console.log(res);

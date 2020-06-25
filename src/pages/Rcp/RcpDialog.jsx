@@ -11,17 +11,19 @@ import RcpForm from '../../components/forms/RcpForm';
 import ApvForm from '../../components/forms/ApvForm';
 import CdvForm from '../../components/forms/CdvForm';
 import { saveRcp } from '../../api';
+import useSheetId from '../../hooks/useSheetId';
 
 export default function RcpDialog(props) {
   const { open, onClose, data } = props;
   const classes = useStyles();
+  const [ id ] = useSheetId();
 
   const initialValues = getInitialValues(data);
 
-  async function handleSubmit(values, { setSubmitting }) {
+  async function handleSubmit(data, { setSubmitting }) {
     try {
       setSubmitting(true);
-      const res = await saveRcp(values);
+      const res = await saveRcp({ id, data });
       console.log(res);
       onClose();
     } catch (e) {
