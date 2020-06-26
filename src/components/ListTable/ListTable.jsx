@@ -55,8 +55,8 @@ export default function ListTable(props) {
       }}
       options={{
         selection,
-        pageSize: 5,
-        pageSizeOptions: [5, 10, 20],
+        pageSize: 25,
+        pageSizeOptions: [25, 50, 100],
         actionsColumnIndex: -1,
       }}
     />
