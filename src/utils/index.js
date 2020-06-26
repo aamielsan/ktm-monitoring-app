@@ -1,5 +1,10 @@
 import format from 'date-fns/format';
-import { TYPE_MAP, CDV_TYPE_MAP } from '../constants';
+import {
+  TYPE_MAP,
+  CDV_TYPE_MAP,
+  PAYMENT_TYPE_MAP,
+  CDV_CHECK_STAT_FSIGNATURE,
+} from '../constants';
 
 export const DATE_FORMAT = 'dd-MMM-yyyy';
 export const LOCALE = 'en-ph';
@@ -74,7 +79,7 @@ export function validate(values) {
 export function getInitialValues(initialValue = {}) {
   const INIT_VALUES = {
     'rcp_item': 'KAMMI-RCP-',
-    'cdv_checkStatus': 'For signature',
+    'cdv_checkStatus': CDV_CHECK_STAT_FSIGNATURE,
   };
   return Object.keys(TYPE_MAP).reduce((res, key) => ({
     ...res,
@@ -84,10 +89,20 @@ export function getInitialValues(initialValue = {}) {
 
 export function getCdvInitialValues(initialValue = {}) {
   const INIT_VALUES = {
-    'cdv_checkStatus': 'For signature',
+    'cdv_checkStatus': CDV_CHECK_STAT_FSIGNATURE
   };
   return Object.keys(CDV_TYPE_MAP).reduce((res, key) => ({
     ...res,
     [key]: initialValue[key] || INIT_VALUES[key] || null,
+  }), {});
+}
+
+export function getPaymentInitialValues(initialValues = {}) {
+  const INIT_VALUES = {
+    'cdv_checkStatus': CDV_CHECK_STAT_FSIGNATURE,
+  };
+  return Object.keys(PAYMENT_TYPE_MAP).reduce((res, key) => ({
+    ...res,
+    [key]: initialValues[key] || INIT_VALUES[key] || null,
   }), {});
 }
