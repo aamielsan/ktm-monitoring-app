@@ -6,14 +6,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { getInitialValues } from '../../utils';
-import RcpForm from '../../components/forms/RcpForm';
-import ApvForm from '../../components/forms/ApvForm';
-import CdvForm from '../../components/forms/CdvForm';
-import { saveRcp } from '../../api';
-import useSheetId from '../../hooks/useSheetId';
+import { getInitialValues } from '../../../utils';
+import RcpForm from '../../../components/forms/RcpForm';
+import ApvForm from '../../../components/forms/ApvForm';
+import CdvForm from '../../../components/forms/CdvForm';
+import PaymentForm from '../../../components/forms/PaymentForm';
+import { saveRcp } from '../../../api';
+import useSheetId from '../../../hooks/useSheetId';
 
-export default function CdvDialog(props) {
+export default function PaymentEditDialog(props) {
   const { open, onClose, data } = props;
   const classes = useStyles();
   const [ id ] = useSheetId();
@@ -37,7 +38,6 @@ export default function CdvDialog(props) {
   async function handleSubmit(data, { setSubmitting }) {
     try {
       setSubmitting(true);
-      console.log(data);
       const res = await saveRcp({ id, data });
       console.log(res);
       onClose();
@@ -61,7 +61,8 @@ export default function CdvDialog(props) {
             <DialogContent>
               <RcpForm disabled />
               <ApvForm disabled />
-              <CdvForm />
+              <CdvForm disabled />
+              <PaymentForm />
             </DialogContent>
             <DialogActions>
               <Button disabled={isSubmitting} onClick={onClose} color="primary">

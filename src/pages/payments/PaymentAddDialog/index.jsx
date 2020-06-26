@@ -1,28 +1,24 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { getInitialValues, getCdvInitialValues } from '../../../utils';
-import CdvForm from '../../../components/forms/CdvForm';
+import { getInitialValues } from '../../../utils';
+import PaymentForm from '../../../components/forms/PaymentForm';
 import Step from './Step';
-import CdvList from './CdvList';
+import Verify from './Verify';
 import { saveRcp } from '../../../api';
 import useSheetId from '../../../hooks/useSheetId';
 
-const STEP_SELECT_APV = 'Verify APVs';
-const STEP_INPUT_CDV = 'Enter CDV details';
-const steps = [ { label: STEP_SELECT_APV }, { label: STEP_INPUT_CDV } ];
+const STEP_VERIFY = 'Verify';
+const STEP_INPUT = 'Enter details';
+const steps = [ { label: STEP_VERIFY }, { label: STEP_INPUT } ];
 
-export default function CdvAddDialog(props) {
-  const { open, rows, onClose } = props;
-  const classes = useStyles();
+export default function PaymentAddDialog(props) {
+  const { open, rows, onClose, initialValues } = props;
   const [ id ] = useSheetId();
   const [ activeStep, setActiveStep ] = useState(0);
-  const initialValues = useMemo(() => getCdvInitialValues({}), []);
 
   function handleNextClick() {
     setActiveStep(s => s + 1);
@@ -35,22 +31,12 @@ export default function CdvAddDialog(props) {
   function renderContent() {
     switch (activeStep) {
       case 0:
-        return <CdvList rows={rows} />;
+        return <Verify rows={rows} />;
       case 1:
-        return <CdvForm />;
+        return <PaymentForm />;
       default:
         return null;
     }
-  }
-
-  function handleValidate(values) {
-    const errors = {};
-
-    if (!values.cdv_no) {
-      errors.cdv_no = 'Required';
-    }
-
-    return errors;
   }
 
   async function handleSubmit(values, { setSubmitting }) {
@@ -72,10 +58,8 @@ export default function CdvAddDialog(props) {
 
   return (
     <Dialog fullWidth open={open} onClose={onClose}>
-      <DialogTitle className={classes.title}>{initialValues.rcp_item}</DialogTitle>
       <Formik
         initialValues={initialValues}
-        validate={handleValidate}
         onSubmit={handleSubmit}
       >
         {({ submitForm, isSubmitting }) => (
@@ -112,11 +96,3 @@ export default function CdvAddDialog(props) {
     </Dialog>
   )
 }
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    title: {
-      paddingBottom: 0,
-    },
-  }),
-);

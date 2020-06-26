@@ -1,9 +1,9 @@
 import React from 'react';
-import useSheetId from '../../hooks/useSheetId';
-import useFetchPendingRelease from '../../hooks/useFetchPendingRelease';
-import ListTable from '../../components/ListTable';
-import { formatValueByType } from '../../utils';
-import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../constants';
+import useSheetId from '../../../hooks/useSheetId';
+import useFetchReleased from '../../../hooks/useFetchReleased';
+import ListTable from '../../../components/ListTable';
+import { formatValueByType } from '../../../utils';
+import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../../constants';
 
 const columns = [
   { field: "rcp_item", title: Label["rcp_item"] },
@@ -16,16 +16,17 @@ const columns = [
   // { field: "apv_dateTransaction", title: Label["apv_dateTransaction"], type: "date", render: r => formatValueByType(r.dateTransaction, Type["apvDateTransaction"]) },
   { field: "cdv_no", title: Label["cdv_no"] },
   { field: "cdv_checkNo", title: Label["cdv_checkNo"] },
+  { field: "cdv_datePayment", title: Label["cdv_datePayment"], type: "date", render: r => formatValueByType(r.dateTransaction, Type["cdv_datePayment"]) },
 ];
 
-function PendingReleaseTable(props) {
+function ReleasedTable(props) {
   const { refresh, onSelectionChange, onEditClick } = props;
   const [ sheetId ] = useSheetId();
-  const { rows, loading } = useFetchPendingRelease(sheetId, refresh);
+  const { rows, loading } = useFetchReleased(sheetId, refresh);
 
   return (
     <ListTable
-      title="Pending for Release"
+      title="Released"
       rows={rows}
       loading={loading}
       columns={columns}
@@ -35,4 +36,4 @@ function PendingReleaseTable(props) {
   );
 }
 
-export default PendingReleaseTable;
+export default ReleasedTable;

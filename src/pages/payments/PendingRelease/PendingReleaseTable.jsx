@@ -1,9 +1,9 @@
 import React from 'react';
-import useSheetId from '../../hooks/useSheetId';
-import useFetchReleased from '../../hooks/useFetchReleased';
-import ListTable from '../../components/ListTable';
-import { formatValueByType } from '../../utils';
-import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../constants';
+import useSheetId from '../../../hooks/useSheetId';
+import useFetchPendingRelease from '../../../hooks/useFetchPendingRelease';
+import ListTable from '../../../components/ListTable';
+import { formatValueByType } from '../../../utils';
+import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../../constants';
 
 const columns = [
   { field: "rcp_item", title: Label["rcp_item"] },
@@ -18,14 +18,15 @@ const columns = [
   { field: "cdv_checkNo", title: Label["cdv_checkNo"] },
 ];
 
-function ReleasedTable(props) {
+function PendingReleaseTable(props) {
   const { refresh, onSelectionChange, onEditClick } = props;
   const [ sheetId ] = useSheetId();
-  const { rows, loading } = useFetchReleased(sheetId, refresh);
+  const { rows, loading } = useFetchPendingRelease(sheetId, refresh);
 
   return (
     <ListTable
-      title="Released"
+      selection
+      title="Pending for Release"
       rows={rows}
       loading={loading}
       columns={columns}
@@ -35,4 +36,4 @@ function ReleasedTable(props) {
   );
 }
 
-export default ReleasedTable;
+export default PendingReleaseTable;

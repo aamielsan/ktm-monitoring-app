@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import PendingSignatureTable from './PendingSignatureTable';
-import CdvEditDialog from '../Cdv/CdvEditDialog';
-import RefreshFab from '../../components/RefreshFab';
-import useRefresh from '../../hooks/useRefresh';
+import ReleasedTable from './ReleasedTable';
+import RefreshFab from '../../../components/RefreshFab';
+import useRefresh from '../../../hooks/useRefresh';
+import PaymentEditDialog from '../PaymentEditDialog';
 
-export default function PendingSignature() {
+export default function Released() {
   const [ refresh, setRefresh ] = useRefresh();
   const [ isEditVisible, setIsEditVisible ] = useState(false);
   const [ editData, setEditData ] = useState({});
@@ -26,11 +26,11 @@ export default function PendingSignature() {
   return (
     <>
       <RefreshFab disabled={refresh} onClick={handleRefreshClick} />
-      <PendingSignatureTable
+      <ReleasedTable
         refresh={refresh}
         onEditClick={handleEditClick}
       />
-      <CdvEditDialog
+      <PaymentEditDialog
         data={editData}
         open={isEditVisible}
         onClose={handleEditClose}

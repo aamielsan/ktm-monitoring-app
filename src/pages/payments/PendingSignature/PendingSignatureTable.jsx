@@ -1,9 +1,9 @@
 import React from 'react';
-import useSheetId from '../../hooks/useSheetId';
-import useFetchPendingSignature from '../../hooks/useFetchPendingSignature';
-import ListTable from '../../components/ListTable';
-import { formatValueByType } from '../../utils';
-import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../constants';
+import useSheetId from '../../../hooks/useSheetId';
+import useFetchPendingSignature from '../../../hooks/useFetchPendingSignature';
+import ListTable from '../../../components/ListTable';
+import { formatValueByType } from '../../../utils';
+import { LABEL_MAP as Label, TYPE_MAP as Type } from '../../../constants';
 
 const columns = [
   { field: "rcp_item", title: Label["rcp_item"] },
@@ -25,6 +25,7 @@ function PendingSignatureTable(props) {
 
   return (
     <ListTable
+      selection
       title="Pending for Signature"
       rows={rows}
       loading={loading}

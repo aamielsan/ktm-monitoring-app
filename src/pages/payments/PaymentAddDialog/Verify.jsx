@@ -18,14 +18,21 @@ function CdvListItem(props) {
     <>
       <ListItem alignItems="flex-start">
         <ListItemText
-          primary={data.rcp_item}
+          primary={
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <Detail data={data} field="cdv_no" />
+                <Detail data={data} field="cdv_checkNo" />
+              </Grid>
+            </Grid>
+          }
           primaryTypographyProps={typographyProps}
           secondary={
             <Grid container spacing={2}>
               <Grid item xs={6}>
+                <Detail data={data} field="cdv_checkStatus" />
                 <Detail data={data} field="rcp_payee" />
                 <Detail data={data} field="rcp_dateDue" />
-                <Detail data={data} field="apv_no" />
               </Grid>
               <Grid item xs={6}>
                 <Detail data={data} field="rcp_amtPeso" />
