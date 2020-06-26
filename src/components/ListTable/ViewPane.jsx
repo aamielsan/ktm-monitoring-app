@@ -9,6 +9,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import RcpForm from '../../components/forms/RcpForm';
 import ApvForm from '../../components/forms/ApvForm';
 import CdvForm from '../../components/forms/CdvForm';
+import PaymentForm from '../../components/forms/PaymentForm';
 
 export default function ViewPane(props) {
   const { data, onEditClick, onCloseClick } = props;
@@ -28,6 +29,7 @@ export default function ViewPane(props) {
       <RcpForm disabled initialValues={data} />
       <ApvForm disabled initialValues={data} />
       <CdvForm disabled initialValues={data} />
+      <PaymentForm disabled initialValues={data} />
     </Paper>
   );
 }
