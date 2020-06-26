@@ -2,6 +2,7 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import pick from 'lodash.pick';
 import axios from 'axios';
 import { TYPE_MAP } from '../constants';
+import { normalize } from '../utils';
 
 let doc;
 let currSheetId
@@ -44,7 +45,7 @@ export async function saveRcp({ id, data }) {
       process.env.REACT_APP_BACKEND_URL,
       {
         id,
-        data,
+        data: normalize(data),
       },
       {
         headers: {
