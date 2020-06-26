@@ -9,38 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import logo from '../assets/logo3.png';
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    container: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      margin: theme.spacing(2)
-    },
-    divider: {
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
-    },
-    horizontalList: {
-      display: 'flex',
-      flexDirection: 'row',
-      padding: 0,
-    },
-    listItem: {
-      color: theme.palette.secondary.main,
-    },
-    selected: {
-      borderBottomStyle: "solid",
-      borderBottomWidth: "medium",
-    },
-  }),
-);
-
 function LinkItem(props) {
   const classes = useStyles();
   return (
@@ -81,6 +49,18 @@ export  default function Container(props) {
               to='/cdv'
               label='CDV'
             />
+            <LinkItem
+              to='/pending-signature'
+              label='Pending Signature'
+            />
+            <LinkItem
+              to='/pending-release'
+              label='Pending Release'
+            />
+            <LinkItem
+              to='/released'
+              label='Released'
+            />
           </List>
         </Toolbar>
       </AppBar>
@@ -90,3 +70,37 @@ export  default function Container(props) {
     </div>
   );
 }
+
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    container: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      margin: theme.spacing(2)
+    },
+    divider: {
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
+    },
+    horizontalList: {
+      display: 'flex',
+      flexDirection: 'row',
+      padding: 0,
+    },
+    listItem: {
+      textAlign: 'center',
+      color: theme.palette.secondary.main,
+    },
+    selected: {
+      borderBottomStyle: "solid",
+      borderBottomWidth: "medium",
+    },
+  }),
+);
+

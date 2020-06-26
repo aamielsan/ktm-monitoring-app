@@ -13,6 +13,9 @@ import Setup from './pages/Setup';
 import Rcp from './pages/Rcp';
 import Apv from './pages/Apv';
 import Cdv from './pages/Cdv';
+import PendingSignature from './pages/PendingSignature';
+import PendingRelease from './pages/PendingRelease';
+import Released from './pages/Released';
 
 export default function App() {
   return (
@@ -29,6 +32,15 @@ export default function App() {
                 </Route>
                 <Route path="/cdv">
                   <Cdv />
+                </Route>
+                <Route path="/pending-signature">
+                  <PendingSignature />
+                </Route>
+                <Route path="/pending-release">
+                  <PendingRelease />
+                </Route>
+                <Route path="/released">
+                  <Released />
                 </Route>
                 <Route path="/">
                   <Rcp />
