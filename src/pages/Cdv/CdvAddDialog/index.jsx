@@ -43,6 +43,16 @@ export default function CdvAddDialog(props) {
     }
   }
 
+  function handleValidate(values) {
+    const errors = {};
+
+    if (!values.cdv_no) {
+      errors.cdv_no = 'Required';
+    }
+
+    return errors;
+  }
+
   async function handleSubmit(values, { setSubmitting }) {
     try {
       setSubmitting(true);
@@ -65,6 +75,7 @@ export default function CdvAddDialog(props) {
       <DialogTitle className={classes.title}>{initialValues.rcp_item}</DialogTitle>
       <Formik
         initialValues={initialValues}
+        validate={handleValidate}
         onSubmit={handleSubmit}
       >
         {({ submitForm, isSubmitting }) => (

@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { getInitialValues, validate } from '../../utils';
+import { getInitialValues } from '../../utils';
 import RcpForm from '../../components/forms/RcpForm';
 import ApvForm from '../../components/forms/ApvForm';
 import CdvForm from '../../components/forms/CdvForm';
@@ -19,6 +19,20 @@ export default function CdvDialog(props) {
   const [ id ] = useSheetId();
 
   const initialValues = getInitialValues(data);
+
+  function handleValidate(values) {
+    const errors = {};
+
+    if (!values.rcp_item) {
+      errors.rcp_item = 'Required';
+    }
+
+    if (!values.cdv_no) {
+      errors.cdv_no = 'Required';
+    }
+
+    return errors;
+  }
 
   async function handleSubmit(data, { setSubmitting }) {
     try {
@@ -38,7 +52,7 @@ export default function CdvDialog(props) {
       <DialogTitle className={classes.title}>{initialValues.rcp_item}</DialogTitle>
       <Formik
         initialValues={initialValues}
-        validate={validate}
+        validate={handleValidate}
         onSubmit={handleSubmit}
       >
         {({ submitForm, isSubmitting }) => (
