@@ -53,6 +53,12 @@ export default function ListTable(props) {
       cellStyle={{
         fontFamily: theme.typography.fontFamily,
       }}
+      style={{
+        height: 'calc(100vh - 72px - (16px * 2))',
+        display: 'flex',
+        overflow: 'hidden',
+        flexDirection: 'column',
+      }}
       options={{
         selection,
         pageSize: 25,
