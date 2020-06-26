@@ -18,7 +18,7 @@ export default function ViewPane(props) {
     <Paper className={classes.container}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Box display="flex" alignItems="center">
-          <Typography gutterBottom className={classes.header} variant="body1" component="span">{data.rcp_item}</Typography>
+          <Typography className={classes.header} variant="body1" component="span">{data.rcp_item}</Typography>
           <Button onClick={onEditClick} variant="text" color="secondary">Edit</Button>
         </Box>
         <IconButton onClick={onCloseClick} aria-label="close" size="small">
@@ -38,14 +38,14 @@ const useStyles = makeStyles(theme =>
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
+      overflow: 'scroll',
     },
     divider: {
       marginBottom: theme.spacing(1)
     },
     header: {
-      marginTop: theme.spacing(1),
       marginRight: theme.spacing(1),
-      fontWeight: 'bold',
+      fontWeight: theme.typography.fontWeightMedium,
     },
   }),
 );

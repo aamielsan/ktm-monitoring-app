@@ -41,6 +41,11 @@ function ListTableContainer(props) {
     <Grid container spacing={2}>
       <Grid item className={classes.item} xs={12} md={showView ? 8 : 12}>
         <ListTable
+          style={{
+            display: 'flex',
+            overflow: 'hidden',
+            flexDirection: 'column',
+          }}
           selection={selection}
           title={title}
           loading={loading}
@@ -55,9 +60,10 @@ function ListTableContainer(props) {
   );
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(theme =>
   createStyles({
     item: {
+      height: `calc(100vh - 72px - ${theme.spacing(2)}px)`,
       display: 'flex',
       flex: 1,
       flexDirection: 'column',
