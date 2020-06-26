@@ -44,14 +44,18 @@ export const CDV_TYPE_MAP = {
   'cdv_no': 'string',
   'cdv_checkNo': 'string',
   // 'cdv_status': 'string',
+};
+
+export const PAYMENT_TYPE_MAP = {
   'cdv_checkStatus': 'string',
   'cdv_datePayment': 'date',
-};
+}
 
 export const TYPE_MAP = {
   ...RCP_TYPE_MAP,
   ...APV_TYPE_MAP,
   ...CDV_TYPE_MAP,
+  ...PAYMENT_TYPE_MAP,
 };
 
 export const CDV_CHECK_STAT_FSIGNATURE = 'For signature';
