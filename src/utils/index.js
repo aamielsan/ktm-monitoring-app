@@ -22,17 +22,22 @@ export function toLocaleCurrency(number, currency) {
 }
 
 export function formatDate(value) {
-  if (!value) {
-    return '';
-  }
+  try {
+    if (!value) {
+      return '';
+    }
 
-  return format(new Date(value), DATE_FORMAT);
+    return format(new Date(value), DATE_FORMAT);
+  } catch (e) {
+    return value;
+  }
 }
 
 export function formatValueByType(value, type) {
   switch (type) {
     case 'date':
       return formatDate(value);
+
     case 'usd':
       return toLocaleCurrency(value, 'USD');
 
@@ -67,15 +72,22 @@ export function validate(values) {
 }
 
 export function getInitialValues(initialValue = {}) {
+  const INIT_VALUES = {
+    'rcp_item': 'KAMMI-RCP-',
+    'cdv_checkStatus': 'For signature',
+  };
   return Object.keys(TYPE_MAP).reduce((res, key) => ({
     ...res,
-    [key]: initialValue[key] || null,
+    [key]: initialValue[key] || INIT_VALUES[key] || null,
   }), {});
 }
 
 export function getCdvInitialValues(initialValue = {}) {
+  const INIT_VALUES = {
+    'cdv_checkStatus': 'For signature',
+  };
   return Object.keys(CDV_TYPE_MAP).reduce((res, key) => ({
     ...res,
-    [key]: initialValue[key] || null,
+    [key]: initialValue[key] || INIT_VALUES[key] || null,
   }), {});
 }
