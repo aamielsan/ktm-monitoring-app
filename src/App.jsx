@@ -13,9 +13,9 @@ import Setup from './pages/Setup';
 import Rcp from './pages/Rcp';
 import Apv from './pages/Apv';
 import Cdv from './pages/Cdv';
-import PendingSignature from './pages/PendingSignature';
-import PendingRelease from './pages/PendingRelease';
-import Released from './pages/Released';
+import PendingSignature from './pages/payments/PendingSignature';
+import PendingRelease from './pages/payments/PendingRelease';
+import Released from './pages/payments/Released';
 
 export default function App() {
   return (
