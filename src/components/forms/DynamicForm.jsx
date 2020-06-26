@@ -1,10 +1,19 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import { Select } from 'formik-material-ui';
 import { DatePicker } from 'formik-material-ui-pickers';
 import { FastField as Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { DATE_FORMAT } from '../../utils';
-import { LABEL_MAP } from '../../constants';
+import {
+  LABEL_MAP,
+  CDV_CHECK_STAT_FRELEASE,
+  CDV_CHECK_STAT_FSIGNATURE,
+  CDV_CHECK_STAT_RELEASED,
+} from '../../constants';
 
 function renderFields(typeMap) {
   const gridProps = {
@@ -20,6 +29,26 @@ function renderFields(typeMap) {
     const name = key;
     const label = LABEL_MAP[key];
     const type = typeMap[key];
+
+    // Lazy AF
+    if (name === 'cdv_checkStatus') {
+      return (
+        <Grid key={name} {...gridProps}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor={name}>{label}</InputLabel>
+            <Field
+                component={Select}
+                name={name}
+                inputProps={{ id: name }}
+              >
+                <MenuItem value={CDV_CHECK_STAT_FSIGNATURE}>{CDV_CHECK_STAT_FSIGNATURE}</MenuItem>
+                <MenuItem value={CDV_CHECK_STAT_FRELEASE}>{CDV_CHECK_STAT_FRELEASE}</MenuItem>
+                <MenuItem value={CDV_CHECK_STAT_RELEASED}>{CDV_CHECK_STAT_RELEASED}</MenuItem>
+              </Field>
+          </FormControl>
+        </Grid>
+      )
+    }
 
     switch (type) {
       case 'date': {

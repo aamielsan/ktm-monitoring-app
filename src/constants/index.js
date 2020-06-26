@@ -10,12 +10,12 @@ export const LABEL_MAP = {
   'apv_dateTransaction': 'Transaction Date',
   'apv_no': 'APV No.',
   'apv_remarks': 'Remarks',
-  'apv_dateTransmitted': 'Date Transmitted',
-  'apv_receivedBy': 'Received By',
+  // 'apv_dateTransmitted': 'Date Transmitted',
+  // 'apv_receivedBy': 'Received By',
   'cdv_dateTransaction': 'Transaction Date',
   'cdv_no': 'CDV No.',
   'cdv_checkNo': 'Check No.',
-  'cdv_status': 'CDV Status',
+  // 'cdv_status': 'CDV Status',
   'cdv_checkStatus': 'Check Status',
   'cdv_datePayment': 'Released Date',
 }
@@ -35,15 +35,15 @@ export const APV_TYPE_MAP = {
   'apv_dateTransaction': 'date',
   'apv_no': 'string',
   'apv_remarks': 'string',
-  'apv_dateTransmitted': 'date',
-  'apv_receivedBy': 'string',
+  // 'apv_dateTransmitted': 'date',
+  // 'apv_receivedBy': 'string',
 };
 
 export const CDV_TYPE_MAP = {
   'cdv_dateTransaction': 'date',
   'cdv_no': 'string',
   'cdv_checkNo': 'string',
-  'cdv_status': 'string',
+  // 'cdv_status': 'string',
   'cdv_checkStatus': 'string',
   'cdv_datePayment': 'date',
 };
@@ -53,3 +53,7 @@ export const TYPE_MAP = {
   ...APV_TYPE_MAP,
   ...CDV_TYPE_MAP,
 };
+
+export const CDV_CHECK_STAT_FSIGNATURE = 'For signature';
+export const CDV_CHECK_STAT_FRELEASE = 'For release';
+export const CDV_CHECK_STAT_RELEASED = 'Released';
