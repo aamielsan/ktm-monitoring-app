@@ -78,7 +78,7 @@ export function validate(values) {
 
 export function getInitialValues(initialValue = {}) {
   const INIT_VALUES = {
-    'rcp_item': 'KAMMI-RCP-',
+    'rcp_item': '',
     'cdv_checkStatus': CDV_CHECK_STAT_FSIGNATURE,
   };
   return Object.keys(TYPE_MAP).reduce((res, key) => ({

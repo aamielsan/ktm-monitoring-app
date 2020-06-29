@@ -4,7 +4,8 @@ import { CDV_CHECK_STAT_FSIGNATURE } from '../constants';
 
 function isPending(row) {
   return Boolean(
-    row.apv_no
+    row.rcp_item
+    && row.apv_no
     && row.cdv_no
     && row.cdv_checkStatus === CDV_CHECK_STAT_FSIGNATURE
   );

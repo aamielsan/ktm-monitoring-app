@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { fetchRows } from '../api';
 
 function isPending(row) {
-  return !row.apv_no;
+  return Boolean(
+    row.rcp_item
+    && !row.apv_no
+  );
 }
 
 function useFetchApv(sheetId, refresh) {
