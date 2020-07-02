@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { Select } from 'formik-material-ui';
 import { DatePicker } from 'formik-material-ui-pickers';
-import { FastField as Field } from 'formik';
+import { Field, FastField, useFormikContext } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { DATE_FORMAT } from '../../utils';
 import {
@@ -15,7 +15,7 @@ import {
   CDV_CHECK_STAT_RELEASED,
 } from '../../constants';
 
-function renderFields(typeMap) {
+function renderFields({ typeMap, disabledMap }) {
   const gridProps = {
     item: true,
     xs: 12
@@ -36,7 +36,7 @@ function renderFields(typeMap) {
         <Grid key={name} {...gridProps}>
           <FormControl fullWidth>
             <InputLabel htmlFor={name}>{label}</InputLabel>
-            <Field
+            <FastField
                 component={Select}
                 name={name}
                 inputProps={{ id: name }}
@@ -44,7 +44,7 @@ function renderFields(typeMap) {
                 <MenuItem value={CDV_CHECK_STAT_FSIGNATURE}>{CDV_CHECK_STAT_FSIGNATURE}</MenuItem>
                 <MenuItem value={CDV_CHECK_STAT_FRELEASE}>{CDV_CHECK_STAT_FRELEASE}</MenuItem>
                 <MenuItem value={CDV_CHECK_STAT_RELEASED}>{CDV_CHECK_STAT_RELEASED}</MenuItem>
-              </Field>
+              </FastField>
           </FormControl>
         </Grid>
       )
@@ -60,6 +60,7 @@ function renderFields(typeMap) {
               label={label}
               component={DatePicker}
               format={DATE_FORMAT}
+              disabled={disabledMap[name] || false}
             />
           </Grid>
         );
@@ -74,6 +75,7 @@ function renderFields(typeMap) {
               type={type}
               label={label}
               name={name}
+              disabled={disabledMap[name] || false}
             />
           </Grid>
         );
@@ -84,9 +86,16 @@ function renderFields(typeMap) {
 
 export default function DynamicForm(props) {
   const { typeMap } = props;
+  const { values } = useFormikContext();
+  const { cdv_checkStatus } = values;
+  const disabledMap = {
+    cdv_datePayment: cdv_checkStatus !== CDV_CHECK_STAT_RELEASED,
+    cdv_orNo: cdv_checkStatus !== CDV_CHECK_STAT_RELEASED,
+  };
+
   return (
     <Grid container spacing={1}>
-      {renderFields(typeMap)}
+      {renderFields({ typeMap, disabledMap })}
     </Grid>
   );
 }

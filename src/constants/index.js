@@ -18,6 +18,7 @@ export const LABEL_MAP = {
   // 'cdv_status': 'CDV Status',
   'cdv_checkStatus': 'Check Status',
   'cdv_datePayment': 'Released Date',
+  'cdv_orNo': 'OR Reference',
 }
 
 export const RCP_TYPE_MAP = {
@@ -49,6 +50,7 @@ export const CDV_TYPE_MAP = {
 export const PAYMENT_TYPE_MAP = {
   'cdv_checkStatus': 'string',
   'cdv_datePayment': 'date',
+  'cdv_orNo': 'string',
 }
 
 export const TYPE_MAP = {
